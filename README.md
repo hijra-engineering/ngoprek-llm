@@ -53,3 +53,9 @@ Contoh menjalankan demo untuk melengkapi kalimat (_completion_):
 ```
 $ npm run nbb complete.cljs "Ibukota Indonesia adalah"
 ```
+
+Contoh menjalankan demo untuk bertanya:
+
+```
+$ npm run nbb ask.cljs "Apa ibukota Jawa Timur?"
+```
