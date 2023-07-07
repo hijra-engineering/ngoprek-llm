@@ -5,6 +5,11 @@
     "node": ">=18"
   },
   "scripts": {
+    "nbb": "nbb",
+    "nrepl": "nbb nrepl-server :port 9000",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "nbb": "~1.2.174"
   }
 }
