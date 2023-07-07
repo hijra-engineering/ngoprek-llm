@@ -1,6 +1,9 @@
 {
   "name": "ngoprek-llm",
   "version": "0.0.1",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   }
