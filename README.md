@@ -17,3 +17,21 @@ Contoh menjalankan demo untuk bertanya:
 ```
 $ node ask.js "Berapa jumlah penduduk Bandung?"
 ```
+
+Contoh menjalankan demo untuk mencari info detil:
+
+```
+$ node query.js "Bagaimana suhu di ibukota Jawa Timur?"
+```
+
+```mermaid
+sequenceDiagram
+  participant Client
+  participant Agent
+  participant LLM
+  Client->>+LLM: "Bagaimana suhu di ibukota Jawa Timur?"
+  Note right of LLM: ibukota Jawa Timur = Surabaya
+  LLM-->>+Agent: weather("Surabaya")
+  Agent-->>+LLM: {"temp_c":27,"humidity":88}
+  LLM->>+Client: "Suhu di Surabaya sekitar 27°C"
+```
