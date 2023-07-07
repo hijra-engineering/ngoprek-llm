@@ -6,6 +6,8 @@ Yang diperlukan: [kunci API (_API key_) dari OpenAI](https://platform.openai.com
 
 Kebutuhan lain: [Node.js 18](https://nodejs.org/) atau yang lebih baru.
 
+### Versi JavaScript
+
 Contoh menjalankan demo untuk melengkapi kalimat (_completion_):
 
 ```
@@ -34,4 +36,20 @@ sequenceDiagram
   LLM-->>+Agent: weather("Surabaya")
   Agent-->>+LLM: {"temp_c":27,"humidity":88}
   LLM->>+Client: "Suhu di Surabaya sekitar 27°C"
+```
+
+### Versi Clojure
+
+Demo versi Clojure bisa dijalankan langsung lewat terminal sebagaimana dicontohkan di bawah ini, akan tetapi lebih baik dipahami dan dicoba dengan menggunakan REPL (misalnya dengan [Visual Studio Code](https://code.visualstudio.com/) + [Calva](https://marketplace.visualstudio.com/items?itemName=betterthantomorrow.calva) atau [Vim](https://www.vim.org/)/[NeoVim](https://neovim.io/) + [vim-iced plugin](https://github.com/liquidz/vim-iced)).
+
+Pertama, pastikan modul yang dibutuhkan sudah terpasang:
+
+```
+$ npm install
+```
+
+Contoh menjalankan demo untuk melengkapi kalimat (_completion_):
+
+```
+$ npm run nbb complete.cljs "Ibukota Indonesia adalah"
 ```
