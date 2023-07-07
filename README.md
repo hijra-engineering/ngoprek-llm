@@ -11,3 +11,9 @@ Contoh menjalankan demo untuk melengkapi kalimat (_completion_):
 ```
 $ node complete.js "Sukarno dan Hatta pada tahun 1945"
 ```
+
+Contoh menjalankan demo untuk bertanya:
+
+```
+$ node ask.js "Berapa jumlah penduduk Bandung?"
+```
