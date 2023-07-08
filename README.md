@@ -59,3 +59,9 @@ Contoh menjalankan demo untuk bertanya:
 ```
 $ npm run nbb ask.cljs "Apa ibukota Jawa Timur?"
 ```
+
+Contoh menjalankan demo untuk mencari info detil:
+
+```
+$ npm run nbb probe.cljs "Kapan saya terakhir ke Bandung?"
+```
