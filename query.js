@@ -1,8 +1,15 @@
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-const WEATHER_API_KEY = process.env.WEATHER_API_KEY;
+const OPENWEATHERMAP_API_KEY = process.env.OPENWEATHERMAP_API_KEY;
 
-async function weather(location) {
-    const url = `http://api.weatherapi.com/v1/current.json?key=${WEATHER_API_KEY}&q=${location}`;
+async function geocode(location) {
+    const url = `https://geocoding-api.open-meteo.com/v1/search?name=${location}&count=1&format=json`
+    const response = await fetch(url);
+    const { results } = await response.json();
+    return results.pop();
+}
+
+async function weather(lat, lon) {
+    const url = `https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${lat}&lon=${lon}&appid=${OPENWEATHERMAP_API_KEY}`
     const response = await fetch(url);
     const data = await response.json();
     return data;
@@ -29,8 +36,8 @@ async function chat(messages, functions) {
 }
 
 const FUNCTION_DEFS = [{
-    "name": "weather",
-    "description": "Get the current weather in a given location",
+    "name": "geocode",
+    "description": "Get the latitude and longitude of a location",
     "parameters": {
         "type": "object",
         "required": ["location"],
@@ -41,12 +48,33 @@ const FUNCTION_DEFS = [{
             }
         }
     }
+}, {
+    "name": "weather",
+    "description": "Get the current weather in a given location",
+    "parameters": {
+        "type": "object",
+        "required": ["latitude", "longitude"],
+        "properties": {
+            "latitude": {
+                "type": "number",
+                "description": "The latitude"
+            },
+            "longitude": {
+                "type": "number",
+                "description": "The longitude"
+            }
+        }
+    }
 }]
 
 async function invokeFunction(name, args) {
-    if (name === "weather") {
+    if (name === "geocode") {
         const { location } = args;
-        return await weather(location);
+        return await geocode(location);
+    }
+    if (name === "weather") {
+        const { latitude, longitude } = args;
+        return await weather(latitude, longitude);
     }
 }
 
@@ -94,8 +122,8 @@ async function query(inquiry) {
     try {
         if (!OPENAI_API_KEY || !OPENAI_API_KEY.length || OPENAI_API_KEY.length < 50)
             throw new Error("Invalid API key for OpenAI");
-        if (!WEATHER_API_KEY || !WEATHER_API_KEY.length || WEATHER_API_KEY.length < 31)
-            throw new Error("Invalid API key for WeatherAPI.com");
+        if (!OPENWEATHERMAP_API_KEY || !OPENWEATHERMAP_API_KEY.length)
+            throw new Error("Invalid API key for openweathermap.org");
 
         const inquiry = process.argv.slice(2).join(" ");
         if (inquiry.length < 2)

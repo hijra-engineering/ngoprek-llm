@@ -23,6 +23,21 @@ $ node ask.js "Berapa jumlah penduduk Bandung?"
 Contoh menjalankan demo untuk mencari info detil:
 
 ```
+$ node query.js "Berapa koordinat geografis dari Bandung?"
+```
+
+```mermaid
+sequenceDiagram
+  participant Client
+  participant Agent
+  participant LLM
+  Client->>+LLM: "Berapa koordinat geografis dari Bandung?"
+  LLM-->>+Agent: geocode("Bandung")
+  Agent-->>+LLM: {"lat":-6.9,"long":107.6}
+  LLM->>+Client: "Bandung berada di lintang -6.9 dan bujur 107.6."
+```
+
+```
 $ node query.js "Bagaimana suhu di ibukota Jawa Timur?"
 ```
 
@@ -33,8 +48,10 @@ sequenceDiagram
   participant LLM
   Client->>+LLM: "Bagaimana suhu di ibukota Jawa Timur?"
   Note right of LLM: ibukota Jawa Timur = Surabaya
-  LLM-->>+Agent: weather("Surabaya")
-  Agent-->>+LLM: {"temp_c":27,"humidity":88}
+  LLM-->>+Agent: geocode("Surabaya")
+  Agent-->>+LLM: {"lat":-7.3,"long":112.7}
+  LLM-->>+Agent: weather(-7.3, 112.7)
+  Agent-->>+LLM: {"main": {"temp": 27}}
   LLM->>+Client: "Suhu di Surabaya sekitar 27°C"
 ```
 
