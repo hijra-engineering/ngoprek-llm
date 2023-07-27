@@ -1,8 +1,6 @@
 # Ngoprek LLM (Large Language Model)
 
-Yang diperlukan: [kunci API (_API key_) dari OpenAI](https://platform.openai.com/account/api-keys) yang disimpan di variabel lingkungan bernama `OPENAI_API_KEY`.
-
-**Perhatikan**: pemakaian API dari OpenAI akan membutuhkan biaya, karena tidak gratis, sehingga Anda bisa mendapatkan _API key_ setelah memasukkan metoda pembayaran terlebih dahulu.
+Yang diperlukan: [kunci API (_API key_) dari OpenAI](https://platform.openai.com/account/api-keys) yang disimpan di variabel lingkungan bernama `OPENAI_API_KEY`. Silakan simak langkah berikut untuk membuat [kunci API](https://help.openai.com/en/articles/4936850-where-do-i-find-my-secret-api-key) dan jangan lupa gunakan kunci API ini dengan [aman](https://help.openai.com/en/articles/5112595)!
 
 Kebutuhan lain: [Node.js 18](https://nodejs.org/) atau yang lebih baru.
 
