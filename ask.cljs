@@ -1,8 +1,10 @@
 (ns ask)
 
+(def API_BASE (or js/process.env.OPENAI_API_BASE "https://api.openai.com"))
+
 (def API_KEY js/process.env.OPENAI_API_KEY)
 
-(def CHAT_API_URL "https://api.openai.com/v1/chat/completions")
+(def CHAT_MODEL (or js/process.env.CHAT_MODEL "gpt-3.5-turbo"))
 
 (defn http-post [url bearer payload]
   (js/fetch url (clj->js {:method "POST"
@@ -10,9 +12,12 @@
                                     "Authorization" (str "Bearer " bearer)}
                           :body (js/JSON.stringify (clj->js payload))})))
 
+
+(def CHAT_API_URL (str API_BASE "/v1/chat/completions"))
+
 ;; https://platform.openai.com/docs/api-reference/chat
 (defn call-chat-api [messages]
-  (let [payload {:model "gpt-3.5-turbo" :messages messages}
+  (let [payload {:model CHAT_MODEL :messages messages}
         promise (http-post CHAT_API_URL API_KEY payload)]
     (.then promise (fn [response] (.json response)))))
 
@@ -37,7 +42,7 @@
   (not-empty (js->clj (.slice js/process.argv 3))))
 
 (defn main [args]
-  (if (empty? API_KEY)
+  (if (and (> (.indexOf API_BASE "openai") 0) (empty? API_KEY))
     (js/console.error "No API key, please set OPENAPI_API_KEY!")
     (let [prompt (first args)]
       (if (empty? prompt)
@@ -47,6 +52,8 @@
 (main cli-args)
 
 (comment
+
+  (llm-ask "The capital of Indonesia is")
 
   (llm-ask "Berapa jumlah penduduk Jakarta?")
 
